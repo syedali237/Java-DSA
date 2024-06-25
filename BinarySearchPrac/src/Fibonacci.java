@@ -1,10 +1,10 @@
 public class Fibonacci {
     public static void main(String[] args) {
-        int ans = fibo(4);
+        int ans = fibo2(4);
         System.out.println(ans);
     }
 
-    static int fibo(int n){
+    static int fibo2(int n){
         if(n<2){
             return n;
         }
