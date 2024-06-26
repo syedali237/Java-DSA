@@ -5,6 +5,8 @@ public class Seive {
         sieve(n, primes);
     }
 
+    // sieve of eratosthenes 
+
     
     // false in array means number is prime
     static void sieve(int n, boolean[] prime){
