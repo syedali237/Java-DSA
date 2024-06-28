@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Factors {
     public static void main(String[] args) {
-        factors3(20);
+        factors3(36);
     }
 
     // Time Complexity : O(n)
@@ -33,7 +33,7 @@ public class Factors {
         for (int i = 1; i <= Math.sqrt(n); i++) {
             if (n % i == 0) {
                 if (n/i == i) {
-                    System.out.print(i);
+                    System.out.print(i + " ");
                 } else {
                     System.out.print(i + " ");    
                     list.add(n/i);
