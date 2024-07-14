@@ -3,6 +3,8 @@ import java.util.ArrayList;
 public class Factors {
     public static void main(String[] args) {
         factors3(36);
+        factors1(2);
+        factors2(3);
     }
 
     // Time Complexity : O(n)
