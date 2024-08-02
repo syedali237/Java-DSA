@@ -9,10 +9,11 @@ public class Permutations {
     public static void main(String[] args) {
         // permutation("", "abc");
 
-        // ArrayList<String> ans = permutationList("", "abc");
-        // System.out.println(ans);
+        ArrayList<String> ans = permutationList("", "123");
+        // Collections.sort(ans);
+        System.out.println(ans);
 
-        System.out.println(permutationCount("", "abcd"));
+        // System.out.println(permutationCount("", "1234"));
     }
 
     static void permutation(String p, String up){
