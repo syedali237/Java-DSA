@@ -1,0 +1,14 @@
+Why static main?
+You should be able to run main without any object since it is the first thing that will run, and how can it run inside class
+since no object cannot be created without running main.
+Static variables do not depend on Objects. They depend on the class.
+
+A static method can only access an static.
+
+Non - static belongs to an instance
+Non- Static can access static
+
+
+Outer classes cannot be static.
+
+Class methods are resolved during compile time.
