@@ -5,6 +5,14 @@ public class Box {
     double w;
     // double weight;
 
+    static void greeting() {
+        System.out.println("Hey, I am in Box class. Greetings!");
+    }
+
+    public double getL() {
+        return l;
+    }
+
     Box () {
         // super(); calling Object Class
 

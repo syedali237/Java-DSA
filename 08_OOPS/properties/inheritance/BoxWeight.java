@@ -1,9 +1,16 @@
+
 public class BoxWeight extends Box {
 
     double weight;
 
     public BoxWeight(){
         this.weight = -1;
+    }
+
+    // @Override
+    static void greeting() {
+        System.out.println("Hey, I am in BoxWeight class. Greetings!");
+        // ArrayList list = new ArrayList();
     }
     
     BoxWeight (BoxWeight other) {
