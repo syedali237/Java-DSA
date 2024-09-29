@@ -252,6 +252,259 @@ public class LL {
         head = prev;
     }
 
+    ListNode reverseBetween(ListNode head, int left, int right){
+        if (left == right) {
+            return head;
+        }
+
+        // skip the first left-1 nodes
+        ListNode current = head;
+        ListNode prev = null;
+        for (int i = 0; current != null && i < left - 1; i++) {
+            prev = current;
+            current = current.next;
+        }
+
+        ListNode last = prev;
+        ListNode newEnd = current;
+
+        // reverse between left and right
+
+        ListNode next = current.next;
+        for (int i = 0; current != null && i < right -left + 1;  i++) {
+            current.next = prev;
+            prev = current;
+            current = next;
+            if (next != null) {
+                next = next.next;    
+            }
+        }
+
+        if (last != null) {
+            last.next = prev;
+        } else {
+            head = prev;
+        }
+        newEnd.next = current;
+        return head;
+    }
+
+    // Pallindrome LL
+    boolean isPalindrome(ListNode head) {
+        ListNode mid = middleNode(head);
+        ListNode headSecond = reverseList(mid);
+        ListNode reverseHead = headSecond;
+
+        // compare both the halves
+
+        while (head != null && headSecond != null) {
+            if (head.val != headSecond.val) {
+                break;
+            }
+            head = head.next;
+            headSecond = headSecond.next;
+        }
+        reverseList(reverseHead);
+        return head == null || headSecond == null;
+    }
+
+    ListNode middleNode(ListNode head) {
+        ListNode s = head;
+        ListNode f = head;
+
+        while (f != null && f.next != null ) {
+            s = s.next;
+            f = f.next.next;
+        }
+
+        return s;
+    }
+
+
+    ListNode reverseList(ListNode head) {
+        ListNode prev = null;
+        ListNode present = head;
+        ListNode next = (head != null) ? head.next : null;
+        
+        while (present != null) {
+            present.next = prev;
+            prev = present;
+            present = next;
+            if (next != null) {
+                next = next.next;    
+            }
+        }
+        return prev;
+    }
+
+    // 143 : ReorderList
+    void reorderList(ListNode head) {
+        if (head == null || head.next == null) {
+            return;
+        }
+
+        ListNode mid = middleNode(head);
+        ListNode headSecond = reverseList(mid);
+        ListNode headFirst = head;
+
+        while (headFirst != null && headSecond != null) {
+            ListNode temp = headFirst.next;
+            headFirst.next = headSecond;
+            headFirst = temp;
+
+            temp = headSecond.next;
+            headSecond.next = headFirst;
+            headSecond = temp;
+        }
+
+        // next of tail to null
+        if (headFirst != null) {
+            headFirst.next = null;
+        }
+    }
+
+    // 25 : Reverse in K groups
+ListNode reverseKGroup(ListNode head, int k) {
+    // Base case: if k <= 1 or the list is empty, no need to reverse
+    if (k <= 1 || head == null) {
+        return head;
+    }
+
+    ListNode current = head;  // Pointer to traverse the list
+    ListNode prev = null;     // Pointer to the previous group
+
+    while (true) { 
+        // Step 1: Check if there are at least k nodes left to reverse
+        ListNode temp = current;  // Temporary pointer to count k nodes
+        for (int i = 0; i < k; i++) {
+            if (temp == null) {
+                return head;  // Return the list as is if less than k nodes left
+            }
+            temp = temp.next;
+        }
+
+        // Step 2: Mark the last node of the previous group and the first node of the next group
+        ListNode last = prev;  // Points to the last node of the previous group
+        ListNode newEnd = current;  // The first node of the current group (will be the new end after reversal)
+
+        // Step 3: Reverse the next k nodes
+        ListNode next = current.next;  // Pointer to keep track of the next node in the list
+        for (int i = 0; current != null && i < k; i++) {
+            current.next = prev;  // Reverse the current node's pointer to the previous node
+            prev = current;       // Move the prev pointer to the current node
+            current = next;       // Move the current pointer to the next node
+            if (next != null) {
+                next = next.next;  // Advance the next pointer
+            }
+        }
+
+        // Step 4: Connect the previous part of the list with the reversed group
+        if (last != null) {
+            last.next = prev;  // Connect the last node of the previous group to the current reversed group
+        } else {
+            head = prev;  // If this is the first group, update the head of the list
+        }
+
+        // Step 5: Connect the end of the reversed group to the remaining nodes
+        newEnd.next = current;
+
+        // Step 6: If we've reached the end of the list, exit the loop
+        if (current == null) {
+            break;
+        }
+
+        // Step 7: Prepare for the next group by updating prev to the end of the current group
+        prev = newEnd;
+    }
+    
+    return head;  // Return the new head of the list after all reversals
+}
+
+// Revers K group alternatively
+
+    ListNode reverseKGroupAlternatively(ListNode head, int k) {
+    if (k <= 1 || head == null) {
+        return head;
+    }
+
+    ListNode current = head;
+    ListNode prev = null;
+
+    while (current != null) { 
+        // Check if there are at least k nodes to reverse
+        ListNode temp = current;
+        for (int i = 0; i < k; i++) {
+            if (temp == null) {
+                return head;  // If fewer than k nodes, return the current head
+            }
+            temp = temp.next;
+        }
+
+        ListNode last = prev;
+        ListNode newEnd = current;
+
+        // Reverse the next k nodes
+        ListNode next = current.next;
+        for (int i = 0; current != null && i < k; i++) {
+            current.next = prev;
+            prev = current;
+            current = next;
+            if (next != null) {
+                next = next.next;    
+            }
+        }
+
+        if (last != null) {
+            last.next = prev;
+        } else {
+            head = prev;
+        }
+
+        newEnd.next = current;
+
+        // skip the k nodes
+        for (int i = 0; current != null && i < k; i++) {
+            prev = current;
+            current = current.next;
+        }
+    }
+    
+    return head;
+}
+
+
+// 61 ROTATE LIST
+
+    ListNode rotateRight(ListNode head, int k) {
+
+        if (k <= 0 || head == null || head.next == null){
+            return head;
+        }
+        
+        ListNode last = head;
+        int length = 1;
+        while (last.next != null) {
+            last = last.next;
+            length++;
+        } 
+
+        int rotations = k % length;
+        if (rotations == 0) {
+            return head;  // No rotation is needed if k is a multiple of the list length
+        }
+        last.next = head;
+        int stepsToNewEnd = length - rotations;
+        ListNode newEnd = head;
+        for (int i = 1; i < stepsToNewEnd; i++) {
+            newEnd = newEnd.next;
+        }
+        head = newEnd.next;
+        newEnd.next = null;
+        return head;
+    }
+
+
+
     public static void main(String[] args) {
         LL first = new  LL();
         LL second = new  LL();
@@ -292,4 +545,13 @@ public class LL {
             this.next = next;
         }
     }
-}
+
+    class ListNode {
+        int val;
+        ListNode next;
+        ListNode(int x){
+            val = x;
+            next = null;
+        }
+    }
+} 
