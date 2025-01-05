@@ -1,7 +1,7 @@
 public class BST {
 
     public class Node {
-        private int value;
+        final private int value;
         private int height;
         private Node left;
         private Node right;
@@ -22,9 +22,9 @@ public class BST {
     }
 
 
-  public int height() {
-    return height(root);
-  }
+    public int height() {
+        return height(root);
+    }
 
     private int height(Node node){
         if (node == null) {
