@@ -37,6 +37,47 @@ public class QuestionsDFS {
         }
     }
 
+    // 110: Balanced BT
+
+    // O(N^2)
+    boolean isBalanced(TreeNode node) {
+        if (node == null) {
+            return true;
+        }
+        return Math.abs(height2(node.left) - height2(node.right)) <= 1 && isBalanced(node.left) && isBalanced(node.right);
+    }
+
+    // more optimized
+    boolean isBalanced2(TreeNode root) {
+        return checkBalance(root) != -1;
+    }
+
+    private int checkBalance(TreeNode node) {
+        if (node == null) {
+            return 0; // Base case: height of an empty tree is 0
+        }
+
+        // Recursively get the height of the left subtree
+        int leftHeight = checkBalance(node.left);
+        if (leftHeight == -1) {
+            return -1; // If left subtree is unbalanced, propagate -1 up
+        }
+
+        // Recursively get the height of the right subtree
+        int rightHeight = checkBalance(node.right);
+        if (rightHeight == -1) {
+            return -1; // If right subtree is unbalanced, propagate -1 up
+        }
+
+        // Check the balance condition for the current node
+        if (Math.abs(leftHeight - rightHeight) > 1) {
+            return -1; // If unbalanced, return -1
+        }
+
+        // Return the height of the subtree rooted at the current node
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
+
     // 543: Diameter  (post order travrsal is used)
     int diameter = 0;
     int diameterOfBinaryTree(TreeNode root) {

@@ -263,6 +263,37 @@ public class Questions {
         return result;
     }
 
+    // 111:
+    int minDepth(TreeNode root) {
+        if (root == null){
+            return 0;
+        }
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        int depth = 1;
+
+        while (!queue.isEmpty()) {
+            int levelSize = queue.size();
+    
+            for (int i = 0; i < levelSize; i++) {
+                TreeNode currNode = queue.poll();
+
+                if (currNode.left == null && currNode.right == null) {
+                    return depth;
+                }
+                if (currNode.left != null) {
+                    queue.offer(currNode.left);
+                }
+                if (currNode.right != null) {
+                    queue.offer(currNode.right);
+                }
+            }
+            depth++;
+        }
+        return 0;
+    }
+
     // Question 637 : Google
     List<Double> averageOfLevels(TreeNode root) {
         List<Double> result = new ArrayList<>();
