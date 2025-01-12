@@ -160,7 +160,7 @@ public class Questions {
 
 
 
-    // Question 116:
+    // Question 116: perfect binary tree
     Node connect(Node root) {
          if (root == null) {
             return null;
@@ -183,6 +183,44 @@ public class Questions {
             leftmostNode = leftmostNode.left;
         }
 
+        return root;
+    }
+
+    // 117 : 
+    Node connect2(Node root) {
+        if(root == null){
+            return null;
+        }
+
+        Queue<Node> queue = new LinkedList<>();
+        queue.offer(root);
+
+        while (!queue.isEmpty()){
+            int levelSize = queue.size();
+            Node prev = null;
+            
+            for (int i = 0; i < levelSize; i++){
+                Node current = queue.poll();
+                if (prev != null) {
+                    prev.next = current;
+                }
+
+                prev = current;
+            
+                if (current.left != null){
+                    queue.offer(current.left);
+                }
+
+                if (current.right != null){
+                    queue.offer(current.right);
+                }
+            }
+
+            if (prev != null) {
+                prev.next = null;
+            }
+        }
+        
         return root;
     }
 
