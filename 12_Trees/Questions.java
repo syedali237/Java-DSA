@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 
 public class Questions {
@@ -38,6 +40,44 @@ public class Questions {
             this.left = left;
             this.right = right;
         }
+    }
+
+    // 501: Mode in BST:
+    public int[] findMode(TreeNode root) {
+        Map<Integer, Integer> map = new HashMap<>();
+        inorder(root, map);
+
+        int maxCount = 0;
+        for (int count : map.values()) {
+            maxCount = Math.max(maxCount, count);
+        }
+    
+        List<Integer> ans = new ArrayList<>();
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            if (entry.getValue() == maxCount) {
+                ans.add(entry.getKey());
+            }
+        }
+
+        int[] result = new int[ans.size()];
+        for (int i = 0; i < ans.size(); i++) {
+            result[i] = ans.get(i);
+        }
+        return result;
+    }
+    void inorder(TreeNode node, Map<Integer, Integer> map){
+        if (node == null) {
+            return;
+        }
+
+        inorder(node.left, map);
+        TreeNode currentNode  = node;
+        if (!map.containsKey(currentNode.val)) {
+            map.put(currentNode.val, 0);
+        } else {
+            map.put(currentNode.val, map.getOrDefault(currentNode.val,0) + 1);
+        }
+        inorder(node.right, map);
     }
 
     // 101
