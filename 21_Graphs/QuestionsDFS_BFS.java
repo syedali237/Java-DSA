@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class Questions {
+public class QuestionsDFS_BFS {
 
             
     class Pair {
@@ -326,6 +326,52 @@ public class Questions {
 
 
     // 1020 : Number of Enclave using Multi Source BFS:
-    
+    int numEnclaves(int[][] board) {
+        int n = board.length;
+        int m = board[0].length;
+        int[][] vis = new int[n][m];
+
+        Queue<Pair> q = new LinkedList<>();
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (i == 0 || j == 0 || i == n - 1 || j == m - 1) {
+                    if (board[i][j] == 1) {
+                        q.add(new Pair(i, j));
+                        vis[i][j] = 1;
+                    }
+                }
+            }
+        }
+
+        int[] dirRow = {-1, 0, +1, 0};
+        int[] dirCol = {0, -1, 0, +1};
+
+        while (!q.isEmpty()) {
+            int r = q.peek().first;
+            int c = q.peek().second;
+            q.remove();
+
+            for (int i = 0; i < dirCol.length; i++) {
+                int nR = r + dirRow[i];
+                int nC = c + dirCol[i];
+                if (nR >= 0 && nR < n && nC >= 0 && nC < m && vis[nR][nC] == 0 && board[nR][nC] == 1) {
+                    q.add(new Pair(nR, nC));
+                    vis[nR][nC] = 1;
+                }
+            }
+        }
+
+        int cnt = 0;
+        for (int r = 0; r < n; r++){
+            for(int c = 0; c < m; c++){
+                if(vis[r][c] == 0 & board[r][c] == 1){
+                    cnt++;
+                }
+            }
+        }  
+
+        return cnt;
+    }
     
 }

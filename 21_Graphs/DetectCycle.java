@@ -79,4 +79,44 @@ public class DetectCycle {
         return false;
     }
 
+
+    // https://www.geeksforgeeks.org/problems/detect-cycle-in-a-directed-graph/1?itm_source=geeksforgeeks&itm_medium=article&itm_campaign=practice_card
+    // Detect Cycle in a directed graph
+
+    boolean isCyclic(int V, ArrayList<ArrayList<Integer>> adj) {
+        // code here
+        int[] vis = new int[V];
+        int[] pathVis = new int[V];
+
+        for (int i = 0; i < V; i++) {
+            if (vis[i] == 0) {
+                if (dfs(i, adj, vis, pathVis) == true) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    boolean dfs(int node, ArrayList<ArrayList<Integer>> adj, int[] vis, int[] pathVis){
+        vis[node] = 1;
+        pathVis[node] = 1;
+
+        for (int i : adj.get(node)){
+            // if node is not visited
+            if (vis[i] == 0) {
+                if (dfs(i, adj, vis, pathVis)) {
+                    return true;
+                }
+            // if node has been previously visited but it has to be visited on the same path
+            } else if (pathVis[i] == 1){
+                return true;
+            }
+        }
+
+        pathVis[node] = 0;
+        return false;
+    }
+    
+
 }
