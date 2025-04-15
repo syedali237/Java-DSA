@@ -7,7 +7,7 @@ public class Graphs {
 
         // Storing it as a matrix
         int n = 3, m =3;
-        int adj[][] = new int[n+1][n+1];
+        int adj[][] = new int[n+1][m+1];
     
         // edge 1--2
         adj[1][2] = 1;
