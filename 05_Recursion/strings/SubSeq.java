@@ -7,8 +7,9 @@ import java.util.ArrayList;
 public class SubSeq {
 
     public static void main(String[] args) {
-        ArrayList<String> ans = subseqAsciiRet("", "abc");
-        System.out.println(ans);
+        // ArrayList<String> ans = subseqAsciiRet("", "abc");
+        subseq("", "abc");
+        // System.out.println(ans);
         // subseqAscii("", "abc");
     }
 
